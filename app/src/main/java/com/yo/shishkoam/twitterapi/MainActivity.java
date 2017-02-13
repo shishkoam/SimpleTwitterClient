@@ -6,11 +6,13 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.DragEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -42,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements Const {
     private final static String TWITTER_KEY = "V9aCPI2rbZdWU9XiTTKpT4nyf";
     private final static String TWITTER_SECRET = "dFHF1WWw3goP7zfqghbnwylpEa7YGjGb2vrAickc2NB9hiZZAu";
     private String searchText;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +77,15 @@ public class MainActivity extends AppCompatActivity implements Const {
         } else {
             initListView(UserManager.getInstance().getLastUser(), onAuthorClickCallback);
         }
+
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                initListView(UserManager.getInstance().getLastUser(), onAuthorClickCallback);
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
     }
 
     //saving search string if opened
@@ -159,7 +171,7 @@ public class MainActivity extends AppCompatActivity implements Const {
     }
 
     //show user tweet timeline
-    private void initListView(String user, OnAuthorClickCallback onAuthorClickCallback) {
+    private void initListView(final String user, final OnAuthorClickCallback onAuthorClickCallback) {
         final UserTimeline userTimeline = new UserTimeline.Builder().screenName(user).build();
         final TwitAdapter adapter = new TwitAdapter(this, userTimeline);
         adapter.setOnAuthorClickCallback(onAuthorClickCallback);
