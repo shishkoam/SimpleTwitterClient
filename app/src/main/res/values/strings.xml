@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">SimpleTwitterClient</string>
+    <string name="action_logout">LogOut</string>
+    <string name="search">Search</string>
+    <string name="user_search">User search</string>
+    <string name="cancel">Cancel</string>
+    <string name="find_user">Find user</string>
+    <string name="left_140_characters">left 140 characters</string>
+    <string name="left_n_characters">left %1$d characters</string>
+    <string name="empty_status">You did not write status to send!</string>
+    <string name="new_tweet">Write Tweet</string>
+    <string name="status_published">Status was published successfully!</string>
+    <string name="failed_to_publish">Failed to publish status!</string>
+    <string name="publish_tweet">Publish tweet</string>
+    <string name="hint_edit_text">Write here your status</string>
+    <string name="login_failed">Login with Twitter failure</string>
+    <string name="logged_in">" logged in!"</string>
+</resources>
